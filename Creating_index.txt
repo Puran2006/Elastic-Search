@@ -1,0 +1,85 @@
+PUT /books
+
+POST books/_doc
+{
+  "name": "Snow Crash",
+  "author": "Neal Stephenson",
+  "release_date": "1992-06-01",
+  "page_count": 470
+}
+
+
+POST /_bulk
+{ "index" : { "_index" : "books" } }
+{"name": "Revelation Space", "author": "Alastair Reynolds", "release_date": "2000-03-15", "page_count": 585}
+{ "index" : { "_index" : "books" } }
+{"name": "1984", "author": "George Orwell", "release_date": "1985-06-01", "page_count": 328}
+{ "index" : { "_index" : "books" } }
+{"name": "Fahrenheit 451", "author": "Ray Bradbury", "release_date": "1953-10-15", "page_count": 227}
+{ "index" : { "_index" : "books" } }
+{"name": "Brave New World", "author": "Aldous Huxley", "release_date": "1932-06-01", "page_count": 268}
+{ "index" : { "_index" : "books" } }
+{"name": "The Handmaids Tale", "author": "Margaret Atwood", "release_date": "1985-06-01", "page_count": 311}
+
+GET /books/_mapping
+
+GET /books
+
+POST /books/_doc
+{
+  "name": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "release_date": "1925-04-10",
+  "page_count": 180,
+  "language": "EN"
+}
+
+GET /books/_mapping
+
+PUT /my_mapping 
+{
+  "mappings": {
+    "dynamic" : false, 
+    "properties" : {
+      "name" : { "type" : "text" },
+      "author" : { "type" : "text" },
+      "release-date" : { "type": "date", "format": "yyyy-MM-dd" },
+      "page_count" : { "type" : "integer" }
+    }
+  } 
+}
+
+// Using the my-index-* template
+POST /my-index-000001/_doc
+{
+  "@timestamp": "2019-05-18T15:57:27.541Z",
+  "ip": "225.44.217.191",
+  "extension": "jpg",
+  "response": "200",
+  "geo": {
+    "coordinates": {
+      "lat": 38.53146222,
+      "lon": -121.7864906
+    }
+  },
+  "url": "https://media-for-the-masses.theacademyofperformingartsandscience.org/uploads/charles-fullerton.jpg"
+}
+
+
+POST /my-index-000002/_doc
+{
+  "@timestamp": "2019-05-20T03:44:20.844Z",
+  "ip": "198.247.165.49",
+  "extension": "php",
+  "response": "200",
+  "geo": {
+    "coordinates": {
+      "lat": 37.13189556,
+      "lon": -76.4929875
+    }
+  },
+  "memory": 241720,
+  "url": "https://theacademyofperformingartsandscience.org/people/type:astronauts/name:laurel-b-clark/profile"
+}
+
+GET /my-index-000001,my-index-000002
