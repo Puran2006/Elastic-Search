@@ -41,46 +41,60 @@ Lets install the elastic search using pip
 ```bash
 pip install elasticsearch
 ```
-
-# Elastic Search Concepts
-
-## index
-
-Think of an index like a database table in MySQL, but optimized for search.
-
-- **In MySQL** : you have a database → table → rows → columns
-
-- **In Elasticsearch** : you have a cluster → index → documents → fields
-
-Data inside an index are documents (JSON objects). Example document in parts index:
-```json
-{
-  "part_name": "Brake Pad",
-  "brand": "Bosch",
-  "price": 1200,
-  "in_stock": true
-}
+Later while nodes with kibana you need to a docker compose method
+```bash
+mkdir ~/elastic-search/docker
+cd ~/elastic-search/docker
+vi docker-compose.yml
 ```
+Copy paste this text 
+```yaml
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: es01
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: kb01
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  es_data:
+
+```
+```bash
+docker compose up -d
+# to verify the cotainers
+docker ps
+```
+Now you can access the kibana at the localhost:5610 
+
 Now in the tutorial, the code is written in ipynb files, but I am working in linux, so Install the jupyterlab in terminal
 
 ```bash
 pip install notebook jupyterlab
-
-# optional
-pip install numpy pandas
 ```
-Start the elastic search docker : 
-s
-```bash
-docker start elasticsearch
-```
-
-Run Jupyter inside this environment:
-
 ```bash
 jupyter lab
 ```
 got to the **localhost:8880**
+
 
 
 

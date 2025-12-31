@@ -1,3 +1,12 @@
+
+# Elastic Search Concepts
+
+- **In MySQL** : you have a database → table → rows → columns
+
+- **In Elasticsearch** : you have a cluster → index → documents → fields
+
+
+
 # INDEX
 
 - An index is like a database table in SQL.
