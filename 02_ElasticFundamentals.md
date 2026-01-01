@@ -110,13 +110,3 @@ GET _cat/shards?v
 # observe the primary and th replica shards where primary is # started and replica is unassigned, thats  why our index is in yellow state
 
 ```
-
-✅ I know what Elasticsearch is and why we use it -- DONE
-
-✅ I can create an index  -- DONE
-
-✅ I can insert and search documents --DONE
-
-✅ I understand shards, replicas, refresh 
-
-✅ I can connect Elasticsearch with Python
