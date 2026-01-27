@@ -58,23 +58,6 @@ GET /products/_search
             "tags.keyword": "Wine"
           }
         }
-      ],
-      "should": [
-        {
-          "term": {
-            "tags.keyword": "Beer"
-          }
-        },
-        {
-          "match": {
-            "name": "beer"
-          }
-        },
-        {
-          "match": {
-            "description": "beer"
-          }
-        }
       ]
     }
   }

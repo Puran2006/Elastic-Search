@@ -15,7 +15,7 @@ GET _cat/indices?v
 
 GET _cat/shards?v   
 
-# observe the primary and th replica shards where primary is # started and replica is unassigned, thats  why our index is in yellow state
+# observe the primary and the replica shards where primary is started and replica is unassigned, thats  why our index is in yellow state
 
 ```
 

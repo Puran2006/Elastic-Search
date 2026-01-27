@@ -13,15 +13,14 @@ For example if id = 100 in our case, we will get a shard number and elastic sear
 Elastic Search routing is evenly distrbuted and open source, everyone change it according to them. lets not deep dive there...
 
 Lets get our minds a quick intersting fact...
-```
-Imagina a scenario: 
-We have two primary shards and we a index a document with id =100 into the index..
-Based on routing formula, the document is stored in Shard B.
-Now we add 3 more shards after sometime and Now we have 5 primary shards..
-Now if we try to retrieve the GET/products/_doc/100. This might come empty.., even if the document is present..
-Because, the routing formula might yield different results, due to change in primary_shards..
 
-```
+- Imagina a scenario:
+  - We have two primary shards and we a index a document with id =100 into the index..
+  - Based on routing formula, the document is stored in Shard B.
+  - Now we add 3 more shards after sometime and Now we have 5 primary shards..
+  - Now if we try to retrieve the GET/products/_doc/100. This might come empty.., even if the document is present..
+  - Because, the routing formula might yield different results, due to change in primary_shards..
+
 **Thats why index shards cannot be changed normally.**
 
 We have to create a new index with more shards and reindex every document from old to new index.. This is done easily through split and shrink APIs.

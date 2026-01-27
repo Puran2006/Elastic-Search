@@ -1,4 +1,7 @@
 # Working with multiple Nodes 
+
+Until Now we have worked with a single node, Now to see how the shards and replicas
+ are stored and distribute we need atleast 3 nodes.
 ```yml
 services:
   es01:
