@@ -236,3 +236,102 @@ PUT _ingest/pipeline/my-pipeline
   ]
 }
 ```
+
+### Most Commonly used processors
+
+Here’s a look at some frequently used ingest processors:
+
+1. **Convert**: Changes the data type of a field.
+2. **Rename**: Changes the name of a field.
+3. **Set**: Assigns a specified value to a field.
+4. **HTML Strip**: Strips HTML tags from a field's content.
+5. **Lowercase**: Transforms the text in a field to lowercase.
+6. **Uppercase**: Transforms the text in a field to uppercase.
+7. **Trim**: Removes whitespace from the beginning and end of a field's value.
+8. **Split**: Divides the field content into an array, using a comma `,` as the delimiter.
+9. **Remove**: Deletes a field from the document.
+10. **Append**: Adds a value to an array field.
+    
+```json
+PUT _ingest/pipeline/my-pipeline
+{
+ "description": "Pipeline to demonstrate various ingest processors",
+    "processors": [
+        {
+            "convert": {
+                "field": "price",
+                "type": "float",
+                "ignore_missing": true
+            }
+        },
+        {
+            "rename": {
+                "field": "old_name",
+                "target_field": "new_name"
+            }
+        },
+        {
+            "set": {
+                "field": "status",
+                "value": "active"
+            }
+        },
+        {
+            "html_strip": {
+                "field": "description"
+            }
+        },
+        {
+            "lowercase": {
+                "field": "username"
+            }
+        },
+        {
+            "uppercase": {
+                "field": "category"
+            }
+        },
+        {
+            "trim": {
+                "field": "title"
+            }
+        },
+        {
+            "split": {
+                "field": "tags",
+                "separator": ","
+            }
+        },
+        {
+            "remove": {
+                "field": "temporary_field"
+            }
+        },
+        {
+            "append": {
+                "field": "tags",
+                "value": ["new_tag"]
+            }
+        }
+    ]
+}
+
+POST my_index/_doc?pipeline=my-pipeline
+{
+    "price": "100.50",
+    "old_name": "old_value",
+    "description": "<p>This is a description with HTML.</p>",
+    "username": "UserNAME",
+    "category": "books",
+    "title": "   Example Title with Whitespace   ",
+    "tags": "tag1,tag2,tag3",
+    "temporary_field": "This field should be removed"
+}
+
+GET /my_index/_search
+{
+    "query": {
+        "match_all": {}
+    }
+}
+```
